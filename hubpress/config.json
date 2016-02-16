@@ -1,10 +1,1 @@
-{
-  "meta": {
-    "username": "amberry",
-    "repositoryName": "blog",
-    "branch": "gh-pages"
-  },
-  "theme": {
-    "name": "Saga"
-  }
-}
+{"meta":{"username":"amberry","repositoryName":"blog","branch":"gh-pages"},"site":{"title":"Spikey Coder","description":"Devops all the [bigdata] things","cover":"http://blog.smartdraw.com/wp-content/uploads/Big-Data.jpg","url":"https://amberry.github.io/blog"},"socialnetwork":{},"theme":{"name":"Saga","url":"//amberry.github.io/blog/themes/Saga"}}
