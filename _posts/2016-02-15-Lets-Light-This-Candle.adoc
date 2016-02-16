@@ -1,0 +1,51 @@
+= Lets Light This Candle
+Adam Berry
+v1.0 
+
+I am in no way as cool as Alan Shephard, nor am I sitting atop a rocket, but its
+my standard call for forging on, and getting started, and so it seemed fitting to yell it here,
+at the dawn of the blog.
+
+The day job has me working on delivering big data as infrastructure. More specifically we
+provide Hadoop and the stack, deliver a bunch of related infrastructure and systems to do that,
+and use Chef and Ruby for config management and automation.
+
+I'm technical lead for a team with the grandiose name of Engineering Productivity, formally we
+provide the tools, infrastructure and support so that all of our teams (dev teams and pure ops
+teams included) can fly.
+
+Its hard. And I really enjoy that.
+
+Whats hard about it?
+--------------------
+
+Distributed systems are a hard class of things all on their lonesome. Config management is no
+cake walk either. Config management and orchestration of distributed systems is really quite difficult.
+
+There are a fairly large array of languages and build tools that go into these systems,
+and herding all of those, and supporting our small dev teams with them is an effort. Change
+management combining open source projects, internal application code and Chef cookbooks is
+enough to keep you up at night, and yes, config code should be treated like all other, tested, 
+versioned and delivered.
+
+So, whats the walk?
+-------------------
+
+Do the simplest thing that works.
+
+Working on all of this together brings plenty of complexity to the table, so everything else
+done around it should be as simple as possible.
+
+But notice I didn't say easiest. Rich Hickey (a personal hero) had that exactly right. These any
+attempt I've seen going after the easy route, has resulted in trouble. Build Simple.
+
+That bakes in to dev choices, bringing in new components into the stack, and how you setup your
+pipelines and automation.
+
+And the talk...?
+----------------
+
+We'll look at the devops holy trinity; tools, process, culture. Attempting to stay away from
+rants, tempering both the highs and the lows.
+
+Thats it for now, more to come, hope the rocket works ;)
