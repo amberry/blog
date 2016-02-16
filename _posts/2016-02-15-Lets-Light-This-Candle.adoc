@@ -1,5 +1,6 @@
 = Lets Light This Candle
 :hp-tags: devops, bigdata
+:hp-image: https://upload.wikimedia.org/wikipedia/commons/8/8b/Alan_Shepard_1961.jpg
 Adam Berry
 v1.0 
 
