@@ -1,0 +1,81 @@
+= Caching in Kitchen
+Adam Berry <adam.m.berry@gmail.com>
+:hp-tags: test-kitchen, chef, vagrant
+
+If you spend time in the development cycle for chef-cookbooks with 
+http://kitchen.ci/[test-kitchen], I bet you've spent significant time waiting for packages to 
+download. The straw that broke this particular camel's back was having vpn performance issues, 
+which really motivated me to find a solution.
+
+A small search later, and I came across the a plugin for https://www.vagrantup.com/[Vagrant] 
+called http://fgrehm.viewdocs.io/vagrant-cachier/[vagrant-cachier], which fit the bill perfectly
+with only having to figure out how to wire it in to the vagrant setup that kitchen creates.
+
+The easiest way to wire this in is to use the support for adding in extra Vagrantfiles from the
+https://github.com/test-kitchen/kitchen-vagrant#-vagrantfiles[kitchen-vagrant] driver. With no
+further ado, the full list of things I did to get it working. All on OS X 10.11.3.
+
+== 1. Install the plugin
+
+`vagrant plugin install vagrant-cachier`
+
+== 2. Additional vagrant file
+
+[source,ruby]
+.VagrantPlugins.rb
+----
+Vagrant.configure("2") do |c|
+  if Vagrant.has_plugin?("vagrant-cachier")
+    c.vm.provision "shell",
+      inline: "mkdir -p /tmp/kitchen/cache; chown -R vagrant:vagrant /tmp/kitchen"
+  	c.cache.scope = :box
+    c.cache.synced_folder_opts = {
+      type: :nfs,
+      nfs_export: false
+    }
+    c.cache.enable :generic, {
+      "chef" => { cache_dir: "/tmp/kitchen/cache" },
+    }
+  end
+end
+----
+
+Here I used nfs because our base virtualbox image doesn't include the guest additions, and so
+this is the fastest additional thing to include to get caching to work.
+
+Yum and gem caching came for free, because 
+
+== 3. Setup nfsd on host
+
+If you are using nfs, as I did, edit `/etc/exports` to include a line for ip addresses that your
+kitchen boxes will use, something like
+
+----
+/Users/[uid]/.vagrant.d/cache" 10.10.10.0/16
+----
+
+This covers the ip space we configure for kitchen instances, adjust yours accordingly. You
+don't need to start/stop a service or anything the os and vagrant take care of that.
+
+== 4. Edit `.kitchen.yml`
+
+Final step is the extra changes that you need in the kitchen configuration to bring this all
+together.
+
+----
+driver:
+  name: vagrant
+  provision: true
+  network:
+  - ['private_network', {ip: '10.10.10.99'}]
+  vagrantfiles:
+    - VagrantPlugins.rb
+----
+
+This assumes you placed that file at the same level as the yaml.
+
+== 5. Profit
+
+This caches at the box level, so anytime you use that box, it will use the same cache, greatly
+speeding up subsequent runs.
+
