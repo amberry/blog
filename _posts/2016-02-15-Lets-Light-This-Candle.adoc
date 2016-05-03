@@ -37,7 +37,7 @@ Do the simplest thing that works.
 Working on all of this together brings plenty of complexity to the table, so everything else
 done around it should be as simple as possible.
 
-But notice I didn't say easiest. Rich Hickey (a personal hero) had that exactly right. These any
+But notice I didn't say easiest. Rich Hickey (a personal hero) had that exactly right. Any
 attempt I've seen going after the easy route, has resulted in trouble. Build Simple.
 
 That bakes in to dev choices, bringing in new components into the stack, and how you setup your
